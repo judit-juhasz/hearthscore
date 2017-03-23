@@ -27,7 +27,7 @@
 
             <ImageButton
                 android:onClick="onClickResetGame"
-                android:src="@drawable/restart4"
+                android:src="@drawable/restart_button"
                 style="@style/RestartImageButton"/>
 
         </RelativeLayout>
@@ -37,7 +37,7 @@
             android:layout_height="wrap_content">
 
             <ImageView
-                android:src="@drawable/parchment1"
+                android:src="@drawable/players_background"
                 style="@style/BackgroundImage"/>
 
             <LinearLayout
@@ -68,7 +68,7 @@
 
                             <ImageButton
                                 android:id="@+id/ib_player_1"
-                                android:src="@drawable/player1"
+                                android:src="@drawable/player_1_icon"
                                 style="@style/PlayerImageButton"/>
 
                             <ImageView
@@ -146,7 +146,7 @@
 
                     <ImageButton
                         android:onClick="onClickStartWinnerSelection"
-                        android:src="@drawable/start_button_background"
+                        android:src="@drawable/button_background"
                         style="@style/StartImageButton"/>
 
                     <TextView
@@ -173,7 +173,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_margin="@dimen/class_panel_layout_margin"
-            android:background="@drawable/parchment2">
+            android:background="@drawable/class_panel_background">
 
             <LinearLayout
                 android:layout_width="match_parent"
