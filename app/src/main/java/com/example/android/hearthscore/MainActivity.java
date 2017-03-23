@@ -13,6 +13,16 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final String SAVE_CURRENT_PHASE_KEY = "SAVE_CURRENT_PHASE_KEY";
+    private static final String SAVE_SELECTED_PLAYER_ID_KEY = "SAVE_SELECTED_PLAYER_ID_KEY";
+    private static final String SAVE_CLASS_SELECTION_PANEL_VISIBILITY_KEY = "SAVE_CLASS_SELECTION_PANEL_VISIBILITY_KEY";
+    private static final String SAVE_START_BUTTON_VISIBILITY_KEY = "SAVE_START_BUTTON_VISIBILITY_KEY";
+    private static final String SAVE_MESSAGE_VISIBILITY_KEY = "SAVE_MESSAGE_VISIBILITY_KEY";
+    private static final String SAVE_PLAYER_1_LIFE_KEY = "SAVE_PLAYER_1_LIFE_KEY";
+    private static final String SAVE_PLAYER_2_LIFE_KEY = "SAVE_PLAYER_2_LIFE_KEY";
+    private static final String SAVE_PLAYER_1_SELECTED_CLASS_ID_KEY = "SAVE_PLAYER_1_SELECTED_CLASS_ID_KEY";
+    private static final String SAVE_PLAYER_2_SELECTED_CLASS_ID_KEY = "SAVE_PLAYER_2_SELECTED_CLASS_ID_KEY";
+
     private static final int PHASE_SELECT_PLAYER = 0;
     private static final int PHASE_SELECT_WINNER = 1;
 
@@ -25,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
     private ImageView mPlayer2ClassImageView;
     private ViewGroup mStartButton;
     private TextView mMessageTextView;
+    private int mPlayer1SelectedClassId;
+    private int mPlayer2SelectedClassId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,7 +105,44 @@ public class MainActivity extends AppCompatActivity {
 
         TextView messageTextView = (TextView) findViewById(R.id.tv_message);
         messageTextView.setTypeface(typeface);
+    }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putInt(SAVE_CURRENT_PHASE_KEY, mCurrentPhase);
+        outState.putInt(SAVE_SELECTED_PLAYER_ID_KEY, mSelectedPlayerId);
+        outState.putInt(SAVE_CLASS_SELECTION_PANEL_VISIBILITY_KEY, mClassSelectionPanel.getVisibility());
+        outState.putInt(SAVE_START_BUTTON_VISIBILITY_KEY, mStartButton.getVisibility());
+        outState.putInt(SAVE_MESSAGE_VISIBILITY_KEY, mMessageTextView.getVisibility());
+        outState.putString(SAVE_PLAYER_1_LIFE_KEY, mPlayer1LifeTextView.getText().toString());
+        outState.putString(SAVE_PLAYER_2_LIFE_KEY, mPlayer2LifeTextView.getText().toString());
+        outState.putInt(SAVE_PLAYER_1_SELECTED_CLASS_ID_KEY, mPlayer1SelectedClassId);
+        outState.putInt(SAVE_PLAYER_2_SELECTED_CLASS_ID_KEY, mPlayer2SelectedClassId);
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        mCurrentPhase = savedInstanceState.getInt(SAVE_CURRENT_PHASE_KEY);
+        mSelectedPlayerId  = savedInstanceState.getInt(SAVE_SELECTED_PLAYER_ID_KEY);
+        mClassSelectionPanel.setVisibility(savedInstanceState.getInt(SAVE_CLASS_SELECTION_PANEL_VISIBILITY_KEY));
+        mStartButton.setVisibility(savedInstanceState.getInt(SAVE_START_BUTTON_VISIBILITY_KEY));
+        mMessageTextView.setVisibility(savedInstanceState.getInt(SAVE_MESSAGE_VISIBILITY_KEY));
+        mPlayer1LifeTextView.setText(savedInstanceState.getString(SAVE_PLAYER_1_LIFE_KEY));
+        mPlayer2LifeTextView.setText(savedInstanceState.getString(SAVE_PLAYER_2_LIFE_KEY));
+
+        mPlayer1SelectedClassId = savedInstanceState.getInt(SAVE_PLAYER_1_SELECTED_CLASS_ID_KEY);
+
+        ImageButton player1SelectedClass = (ImageButton) findViewById(mPlayer1SelectedClassId);
+        Drawable player1SelectedClassDrawable = player1SelectedClass.getDrawable();
+        mPlayer1ClassImageView.setImageDrawable(player1SelectedClassDrawable);
+
+        mPlayer2SelectedClassId = savedInstanceState.getInt(SAVE_PLAYER_2_SELECTED_CLASS_ID_KEY);
+
+        ImageButton player2SelectedClass = (ImageButton) findViewById(mPlayer2SelectedClassId);
+        Drawable player2SelectedClassDrawable = player2SelectedClass.getDrawable();
+        mPlayer2ClassImageView.setImageDrawable(player2SelectedClassDrawable);
     }
 
     private void resetGame() {
@@ -156,6 +205,11 @@ public class MainActivity extends AppCompatActivity {
     private void selectClassForPlayer(int playerId, ImageButton classImageButton) {
         Drawable selectedClassDrawable = classImageButton.getDrawable();
         getPlayerClassImageView(playerId).setImageDrawable(selectedClassDrawable);
+        if (R.id.ib_player_1 == playerId) {
+            mPlayer1SelectedClassId = classImageButton.getId();
+        } else {
+            mPlayer2SelectedClassId = classImageButton.getId();
+        }
     }
 
     private ImageView getPlayerClassImageView(int playerId) {
