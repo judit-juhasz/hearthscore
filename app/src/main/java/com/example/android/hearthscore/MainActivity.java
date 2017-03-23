@@ -1,24 +1,47 @@
 package com.example.android.hearthscore;
 
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final int PHASE_SELECT_PLAYER = 0;
+    private static final int PHASE_SELECT_WINNER = 1;
+
+    private int mCurrentPhase;
+    private int mSelectedPlayerId;
+    private ViewGroup mClassSelectionPanel;
     private TextView mPlayer1LifeTextView;
     private TextView mPlayer2LifeTextView;
+    private ImageView mPlayer1ClassImageView;
+    private ImageView mPlayer2ClassImageView;
+    private ViewGroup mStartButton;
+    private TextView mMessageTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        mClassSelectionPanel = (ViewGroup) findViewById(R.id.class_selection_panel);
         mPlayer1LifeTextView = (TextView) findViewById(R.id.tv_player_1_life);
         mPlayer2LifeTextView = (TextView) findViewById(R.id.tv_player_2_life);
+        mPlayer1ClassImageView = (ImageView) findViewById(R.id.iv_player_1_class);
+        mPlayer2ClassImageView = (ImageView) findViewById(R.id.iv_player_2_class);
+        mStartButton = ( ViewGroup) findViewById(R.id.rl_start_button);
+        mMessageTextView = (TextView) findViewById(R.id.tv_message);
+
+        switchToPhase(PHASE_SELECT_PLAYER);
+        selectClassForPlayer(R.id.ib_player_1, R.id.ib_class_rogue);
+        selectClassForPlayer(R.id.ib_player_2, R.id.ib_class_mage);
 
         final Typeface typeface=Typeface.createFromAsset(getAssets(), "fonts/belwe-bd-bt-bold.ttf");
 
@@ -70,5 +93,117 @@ public class MainActivity extends AppCompatActivity {
 
         TextView messageTextView = (TextView) findViewById(R.id.tv_message);
         messageTextView.setTypeface(typeface);
+
+    }
+
+    private void resetGame() {
+        mPlayer1LifeTextView.setText(getString(R.string.default_life));
+        mPlayer2LifeTextView.setText(getString(R.string.default_life));
+        switchToPhase(PHASE_SELECT_PLAYER);
+    }
+
+    public void onClickResetGame(View v) {
+        resetGame();
+    }
+
+    public void onClickPlayerSelection(View v) {
+        ImageButton selectedPlayer = (ImageButton) v;
+        if (PHASE_SELECT_PLAYER == mCurrentPhase){
+            mSelectedPlayerId = selectedPlayer.getId();
+            alternateClassSelectionPanelVisibility();
+        } else {
+            handleWinnerSelection(selectedPlayer);
+        }
+    }
+
+    private void handleWinnerSelection(ImageButton selectedPlayer) {
+        int selectedPlayerId = selectedPlayer.getId();
+        TextView opponentPlayerLifeTextView;
+
+        if (R.id.ib_player_1 == selectedPlayerId) {
+            opponentPlayerLifeTextView = mPlayer2LifeTextView;
+        } else {
+            opponentPlayerLifeTextView = mPlayer1LifeTextView;
+        }
+
+        String opponentsLifeText = opponentPlayerLifeTextView.getText().toString();
+        int opponentsLife = Integer.parseInt(opponentsLifeText);
+        opponentsLife = opponentsLife - 1;
+        opponentPlayerLifeTextView.setText(String.valueOf(opponentsLife));
+        if (0 == opponentsLife) {
+            if (R.id.ib_player_1 == selectedPlayerId) {
+                Toast.makeText(this, "The winner is Player 1", Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(this, "The winner is Player 2", Toast.LENGTH_LONG).show();
+            }
+            resetGame();
+        } else {
+            switchToPhase(PHASE_SELECT_PLAYER);
+        }
+    }
+
+    public void onClickClassImage(View v) {
+        ImageButton selectedClass = (ImageButton) v;
+        selectClassForPlayer(mSelectedPlayerId, selectedClass);
+        hideClassSelectionPanel();
+    }
+
+    private void selectClassForPlayer(int playerId, int classImageButtonId) {
+        ImageButton selectedClassImageButton = (ImageButton) findViewById(classImageButtonId);
+        selectClassForPlayer(playerId, selectedClassImageButton);
+    }
+
+    private void selectClassForPlayer(int playerId, ImageButton classImageButton) {
+        Drawable selectedClassDrawable = classImageButton.getDrawable();
+        getPlayerClassImageView(playerId).setImageDrawable(selectedClassDrawable);
+    }
+
+    private ImageView getPlayerClassImageView(int playerId) {
+        if (R.id.ib_player_1 == playerId) {
+            return mPlayer1ClassImageView;
+        } else {
+            return mPlayer2ClassImageView;
+        }
+    }
+
+    public void onClickStartWinnerSelection(View v) {
+        switchToPhase(PHASE_SELECT_WINNER);
+    }
+
+    private void hideClassSelectionPanel() {
+        mClassSelectionPanel.setVisibility(View.GONE);
+    }
+
+    private void showClassSelectionPanel() {
+        mClassSelectionPanel.setVisibility(View.VISIBLE);
+    }
+
+    private void alternateClassSelectionPanelVisibility() {
+        if (View.GONE == mClassSelectionPanel.getVisibility()) {
+            showClassSelectionPanel();
+        } else {
+            hideClassSelectionPanel();
+        }
+    }
+
+    private void switchToPhase(int phase) {
+        if (PHASE_SELECT_PLAYER == phase) {
+            showStartButton();
+        } else {
+            showMessage();
+        }
+
+        hideClassSelectionPanel();
+        mCurrentPhase = phase;
+    }
+
+    private void showStartButton() {
+        mStartButton.setVisibility(View.VISIBLE);
+        mMessageTextView.setVisibility(View.GONE);
+    }
+
+    private void showMessage() {
+        mStartButton.setVisibility(View.GONE);
+        mMessageTextView.setVisibility(View.VISIBLE);
     }
 }

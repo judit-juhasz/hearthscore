@@ -26,6 +26,7 @@
                 style="@style/HeaderText"/>
 
             <ImageButton
+                android:onClick="onClickResetGame"
                 android:src="@drawable/restart4"
                 style="@style/RestartImageButton"/>
 
@@ -144,6 +145,7 @@
                     android:visibility="visible">
 
                     <ImageButton
+                        android:onClick="onClickStartWinnerSelection"
                         android:src="@drawable/start_button_background"
                         style="@style/StartImageButton"/>
 
