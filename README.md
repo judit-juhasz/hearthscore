@@ -6,6 +6,6 @@ This app makes it possible to keep track of the scores of series of games in a [
 
 # Demo
 
-[!Demo screeens](https://c1.staticflickr.com/4/3679/33221587620_c70f377cc0_c.jpg)
+![Demo screeens](https://c1.staticflickr.com/4/3679/33221587620_c70f377cc0_c.jpg)
 
 [![HearthScore gameplay](https://img.youtube.com/vi/xzj1ClxrgLA/0.jpg)](http://www.youtube.com/watch?v=xzj1ClxrgLA)
