@@ -1,0 +1,25 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <dimen name="text_size_header">23sp</dimen>
+    <dimen name="text_size_player_name">20sp</dimen>
+    <dimen name="text_size_life">24sp</dimen>
+    <dimen name="text_size_start_button">18sp</dimen>
+    <dimen name="text_size_message">18sp</dimen>
+
+    <dimen name="header_text_padding">4dp</dimen>
+    <dimen name="player_text_margin_top">15dp</dimen>
+    <dimen name="player_text_margin_bottom">10dp</dimen>
+    <dimen name="selected_class_iv_margin_top">25dp</dimen>
+    <dimen name="selected_class_iv_margin_bottom">15dp</dimen>
+    <dimen name="selected_class_iv_margin_right">15dp</dimen>
+    <dimen name="selected_class_iv_margin_left">15dp</dimen>
+    <dimen name="class_panel_layout_margin">2dp</dimen>
+    <dimen name="class_ib_margin_top">10dp</dimen>
+    <dimen name="class_ib_margin_bottom">10dp</dimen>
+    <dimen name="class_ib_margin_right">30dp</dimen>
+    <dimen name="class_ib_margin_left">30dp</dimen>
+
+</resources>

@@ -1,18 +1,264 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.android.hearthscore.MainActivity">
+    tools:context="com.example.android.hearthscore.MainActivity"
+    android:background="@color/colorScrollViewBackground">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:orientation="vertical">
 
-</android.support.constraint.ConstraintLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:src="@drawable/header_icon"
+                style="@style/BackgroundImage"/>
+
+            <TextView
+                android:id="@+id/tv_header_text"
+                android:text="@string/app_name"
+                style="@style/HeaderText"/>
+
+            <ImageButton
+                android:src="@drawable/restart4"
+                style="@style/RestartImageButton"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:src="@drawable/parchment1"
+                style="@style/BackgroundImage"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tv_player_1_text"
+                            android:text="@string/player1_name"
+                            style="@style/PlayerText"/>
+
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <ImageButton
+                                android:id="@+id/ib_player_1"
+                                android:src="@drawable/player1"
+                                style="@style/PlayerImageButton"/>
+
+                            <ImageView
+                                android:id="@+id/iv_player_1_health_icon"
+                                style="@style/LifeImage"/>
+
+                            <TextView
+                                android:id="@+id/tv_player_1_life"
+                                style="@style/LifeIconText"/>
+
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/iv_player_1_class"
+                            style="@style/SelectedClassImageView"
+                            android:layout_marginRight="@dimen/selected_class_iv_margin_right"/>
+
+                        <ImageView
+                            android:id="@+id/iv_player_2_class"
+                            style="@style/SelectedClassImageView"
+                            android:layout_marginLeft="@dimen/selected_class_iv_margin_left"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tv_player_2_text"
+                            android:text="@string/player2_name"
+                            style="@style/PlayerText"/>
+
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <ImageButton
+                                android:id="@+id/ib_player_2"
+                                android:src="@drawable/player_2_icon"
+                                style="@style/PlayerImageButton"/>
+
+                            <ImageView
+                                android:id="@+id/iv_player_2_health_icon"
+                                style="@style/LifeImage"
+                                android:layout_alignParentRight="true"/>
+
+                            <TextView
+                                android:id="@+id/tv_player_2_life"
+                                style="@style/LifeIconText"
+                                android:layout_alignParentRight="true"/>
+
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rl_start_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:visibility="visible">
+
+                    <ImageButton
+                        android:src="@drawable/start_button_background"
+                        style="@style/StartImageButton"/>
+
+                    <TextView
+                        android:id="@+id/tv_play_text"
+                        android:text="@string/start_button"
+                        style="@style/PlayText"/>
+
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/tv_message"
+                    android:text="@string/message_select_winner"
+                    style="@style/Message"
+                    android:layout_gravity="center_horizontal"
+                    android:visibility="gone"/>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/class_selection_panel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_margin="@dimen/class_panel_layout_margin"
+            android:background="@drawable/parchment2">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/ib_class_hunter"
+                    android:src="@drawable/hunter_icon"
+                    style="@style/ClassImage"
+                    android:layout_marginTop="@dimen/class_ib_margin_top"
+                    android:layout_marginLeft="@dimen/class_ib_margin_left"
+                    android:layout_marginRight="@dimen/class_ib_margin_right"/>
+
+                <ImageButton
+                    android:id="@+id/ib_class_priest"
+                    android:src="@drawable/priest_icon"
+                    style="@style/ClassImage"
+                    android:layout_marginTop="@dimen/class_ib_margin_top"/>
+
+                <ImageButton
+                    android:id="@+id/ib_class_mage"
+                    android:src="@drawable/mage_icon"
+                    style="@style/ClassImage"
+                    android:layout_marginTop="@dimen/class_ib_margin_top"
+                    android:layout_marginLeft="@dimen/class_ib_margin_left"
+                    android:layout_marginRight="@dimen/class_ib_margin_right"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/ib_class_paladin"
+                    android:src="@drawable/paladin_icon"
+                    style="@style/ClassImage"
+                    android:layout_marginLeft="@dimen/class_ib_margin_left"
+                    android:layout_marginRight="@dimen/class_ib_margin_right"/>
+
+                <ImageButton
+                    android:id="@+id/ib_class_druid"
+                    android:src="@drawable/druid_icon"
+                    style="@style/ClassImage"/>
+
+                <ImageButton
+                    android:id="@+id/ib_class_rogue"
+                    android:src="@drawable/rogue_icon"
+                    style="@style/ClassImage"
+                    android:layout_marginLeft="@dimen/class_ib_margin_left"
+                    android:layout_marginRight="@dimen/class_ib_margin_right"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/ib_class_shaman"
+                    android:src="@drawable/shaman_icon"
+                    style="@style/ClassImage"
+                    android:layout_marginBottom="@dimen/class_ib_margin_bottom"
+                    android:layout_marginLeft="@dimen/class_ib_margin_left"
+                    android:layout_marginRight="@dimen/class_ib_margin_right" />
+
+                <ImageButton
+                    android:id="@+id/ib_class_warlock"
+                    android:src="@drawable/warlock_icon"
+                    style="@style/ClassImage"
+                    android:layout_marginBottom="@dimen/class_ib_margin_bottom"/>
+
+                <ImageButton
+                    android:id="@+id/ib_class_warrior"
+                    android:src="@drawable/warrior_icon"
+                    style="@style/ClassImage"
+                    android:layout_marginBottom="@dimen/class_ib_margin_bottom"
+                    android:layout_marginLeft="@dimen/class_ib_margin_left"
+                    android:layout_marginRight="@dimen/class_ib_margin_right"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>
