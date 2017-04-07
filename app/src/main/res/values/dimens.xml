@@ -21,5 +21,8 @@
     <dimen name="class_ib_margin_bottom">10dp</dimen>
     <dimen name="class_ib_margin_right">30dp</dimen>
     <dimen name="class_ib_margin_left">30dp</dimen>
+    <dimen name="play_text_padding">4dp</dimen>
+    <dimen name="player_image_button_margin">10dp</dimen>
+    <dimen name="zero_width">0dp</dimen>
 
 </resources>
