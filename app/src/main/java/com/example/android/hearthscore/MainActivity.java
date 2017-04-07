@@ -37,6 +37,16 @@ public class MainActivity extends AppCompatActivity {
     private TextView mMessageTextView;
     private int mPlayer1SelectedClassId;
     private int mPlayer2SelectedClassId;
+    private ImageButton mClassHunterIdImageButton;
+    private ImageButton mClassPriestIdImageButton;
+    private ImageButton mClassMageIdImageButton;
+    private ImageButton mClassPaladinIdImageButton;
+    private ImageButton mClassDruidIdImageButton;
+    private ImageButton mClassRogueIdImageButton;
+    private ImageButton mClassShamanIdImageButton;
+    private ImageButton mClassWarlockIdImageButton;
+    private ImageButton mClassWarriorIdImageButton;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +60,15 @@ public class MainActivity extends AppCompatActivity {
         mPlayer2ClassImageView = (ImageView) findViewById(R.id.iv_player_2_class);
         mStartButton = ( ViewGroup) findViewById(R.id.rl_start_button);
         mMessageTextView = (TextView) findViewById(R.id.tv_message);
+        mClassHunterIdImageButton = (ImageButton) findViewById(R.id.ib_class_hunter);
+        mClassPriestIdImageButton = (ImageButton) findViewById(R.id.ib_class_priest);
+        mClassMageIdImageButton = (ImageButton) findViewById(R.id.ib_class_mage);
+        mClassPaladinIdImageButton = (ImageButton) findViewById(R.id.ib_class_paladin);
+        mClassDruidIdImageButton = (ImageButton) findViewById(R.id.ib_class_druid);
+        mClassRogueIdImageButton = (ImageButton) findViewById(R.id.ib_class_rogue);
+        mClassShamanIdImageButton = (ImageButton) findViewById(R.id.ib_class_shaman);
+        mClassWarlockIdImageButton = (ImageButton) findViewById(R.id.ib_class_warlock);
+        mClassWarriorIdImageButton = (ImageButton) findViewById(R.id.ib_class_warrior);
 
         switchToPhase(PHASE_SELECT_PLAYER);
         selectClassForPlayer(R.id.ib_player_1, R.id.ib_class_rogue);
@@ -181,9 +200,9 @@ public class MainActivity extends AppCompatActivity {
         opponentPlayerLifeTextView.setText(String.valueOf(opponentsLife));
         if (0 == opponentsLife) {
             if (R.id.ib_player_1 == selectedPlayerId) {
-                Toast.makeText(this, "The winner is Player 1", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, getString(R.string.winner_player1), Toast.LENGTH_LONG).show();
             } else {
-                Toast.makeText(this, "The winner is Player 2", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, getString(R.string.winner_player2), Toast.LENGTH_LONG).show();
             }
             resetGame();
         } else {
@@ -197,8 +216,30 @@ public class MainActivity extends AppCompatActivity {
         hideClassSelectionPanel();
     }
 
+    private ImageButton getClassImageButtonById(int id) {
+        if (R.id.ib_class_hunter == id) {
+            return mClassHunterIdImageButton;
+        } else if (R.id.ib_class_priest == id) {
+            return mClassPriestIdImageButton;
+        } else if (R.id.ib_class_mage == id) {
+            return mClassMageIdImageButton;
+        } else if (R.id.ib_class_paladin == id) {
+            return mClassPaladinIdImageButton;
+        } else if (R.id.ib_class_druid == id) {
+            return mClassDruidIdImageButton;
+        } else if (R.id.ib_class_rogue == id) {
+            return mClassRogueIdImageButton;
+        } else if (R.id.ib_class_shaman == id) {
+            return mClassShamanIdImageButton;
+        } else if (R.id.ib_class_warlock == id) {
+            return mClassWarlockIdImageButton;
+        } else {
+            return mClassWarriorIdImageButton;
+        }
+    }
+
     private void selectClassForPlayer(int playerId, int classImageButtonId) {
-        ImageButton selectedClassImageButton = (ImageButton) findViewById(classImageButtonId);
+        ImageButton selectedClassImageButton = getClassImageButtonById(classImageButtonId);
         selectClassForPlayer(playerId, selectedClassImageButton);
     }
 
